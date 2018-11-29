@@ -9,11 +9,11 @@ Wireframes
 This app will consist of a single screen with a simple canvas. The canvas will have a reset button, and contain a series of 8 coral that can be clicked on. Additionally, there will be a button linking to my Github.
 
 Architecture and Technologies
-p5.js for rendering generative designs
+Processing.js for rendering generative designs
 
 Implementation Timeline
 Day 1:
-Learn enough p5.js to generate simple designs
+Learn enough Processing.js to generate simple designs
 
 Day 2:
 Implement generation of initial seed coral, designate "phenotypes" and "genotypes"
