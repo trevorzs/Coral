@@ -156,7 +156,7 @@ function Coral(x,y) {
       coral[i].g2 = random(this.g2-difference,this.g2+difference);
       coral[i].b2 = random(this.b2-difference,this.b2+difference);
       coral[i].length = random(this.length-2,this.length+2);
-      coral[i].angle = random(this.angle-PI/16,this.angle+PI/16);
+      coral[i].angle = random(this.angle-PI/32,this.angle+PI/32);
       coral[i].curvature = random(this.curvature-2,this.curvature+2);
       coral[i].wid = random(this.wid-1,this.wid+1);
       roll = random(1);
