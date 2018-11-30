@@ -1,5 +1,5 @@
 Background
-Generative Art is a concept that refers to art that is created at least partly by an automated or autonomous system. It can refer to art being primarily driven by complex algorithms or a mixture of machine and user input. This simulation will attempt to create generative art that will be altered based on user input. An algorithm will generate a series of coral which the user can interact with. Clicking on a coral will cause a new set of coral to be generated, based on the "genetics" of the coral that was clicked, simulating a type of generative evolution. Corals are generated using l-systems.
+Generative Art is a concept that refers to art that is created at least partly by an automated or autonomous system. It can refer to art being primarily driven by complex algorithms or a mixture of machine and user input. This simulation will attempt to create generative art that will be altered based on user input. Corals are generated using Lindenmayer Systems(l-systems). Clicking on a coral will cause a new set of coral to be generated, based on the "genetics" of the coral that was clicked, simulating a type of generative evolution.
 
 Functionality and MVP
 Click on a button to reset and reseed initial coral with randomized properties
