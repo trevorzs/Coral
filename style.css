@@ -1,3 +1,21 @@
 body{
   margin: 0;
 }
+
+#regenerate{
+  border-radius:5px;
+  background:none;
+  font-size:14px;
+  border:1px solid white;
+  color:white;
+}
+
+#regenerate:hover{
+  color:lightblue;
+  border: 1px solid lightblue;
+  cursor:pointer;
+}
+
+#regenerate:focus{
+  outline:none;
+}

@@ -25,9 +25,20 @@ rules[2] = {
 
 function setup() {
   createCanvas(1080, 600);
+  button = createButton("Regenerate Coral");
+  button.mouseClicked(generate);
+  button.id("regenerate");
+  button.position(width-200,50);
   for (var i = 0; i < 15; i++) {
     bubbles.push(new Bubble());
   }
+  for (var i = 1; i < 9; i++) {
+    coral.push(new Coral(300+i*50,500));
+  }
+}
+
+function generate(){
+  coral = [];
   for (var i = 1; i < 9; i++) {
     coral.push(new Coral(300+i*50,500));
   }
@@ -79,7 +90,7 @@ function Coral(x,y) {
   this.b = random(255);
   this.b2 = random(this.b-80,this.b+80);
   this.width = 50;
-  this.height = 50;
+  this.height = 100;
   this.minlength = 3;
   this.length = random(this.minlength,10);
   this.minwid = 2;
@@ -87,10 +98,10 @@ function Coral(x,y) {
   this.angle = random([random(-PI/6,-PI/10),random(PI/10,PI/6)]);
   // this.angle = PI/6;
   this.lendiff = random(0.1,0.9);
-  this.complexity = random(2,3);
+  this.complexity=3;
   this.curvature = random(-20,20);
 
-  this.generate = (sentence,len,times,lendiff) => {
+  this.generate = (sentence,len,times) => {
     if (times > 0){
       let nextSentence = "";
       for (let i = 0; i < sentence.length; i++) {
@@ -104,7 +115,7 @@ function Coral(x,y) {
           nextSentence += current;
         }
       }
-      return this.generate(nextSentence,len*lendiff,times-1);
+      return this.generate(nextSentence,len,times-1);
     }
     return sentence;
   }
