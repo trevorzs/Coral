@@ -1,7 +1,7 @@
 var coral = [];
 var bubbles = [];
 
-let axiom = "FX";
+let axiom = "F";
 let rules = [];
 let sentence;
 rules[0] = {
@@ -9,8 +9,12 @@ rules[0] = {
   b: "FF+[+F-F-F]-[-F+F+F]"
 }
 rules[1] = {
-  a: "X",
-  b: "XF+[+X-F-X]-[-X+F+X]"
+  a: "F",
+  b: "+F[+F-F-F]-[-F+F+F]F"
+}
+rules[2] = {
+  a: "F",
+  b: "+FF[+F-F-F]-[-F+F+F]"
 }
 
 function setup() {
@@ -19,7 +23,7 @@ function setup() {
     bubbles.push(new Bubble());
   }
   for (var i = 1; i < 9; i++) {
-    coral.push(new Coral(i*133,500));
+    coral.push(new Coral(350+i*50,500));
   }
 }
 
@@ -67,11 +71,22 @@ function Coral(x,y) {
   this.height = random(this.minheight,200);
   this.minlength = 3;
   this.length = random(this.minlength,10);
-  this.angle = random(-PI/4,PI/4);
+  this.angle = random([random(-PI/4,-PI/12),random(PI/12,PI/4)]);
+  // this.angle = PI/6;
   this.lendiff = random(0.1,0.9);
   this.complexity = random(2,3);
-  this.strokeWidth = random(1,4);
-  this.strokeWidth2 = random(1,4);
+  // this.complexity = 0;
+  // this.strokeWidth = random(1,4);
+  // this.strokeWidth2 = random(1,4);
+  this.shape = (len) =>{
+    fill(this.r,this.g,this.b);
+    beginShape();
+    vertex(0,0);
+    vertex(0,-len);
+    vertex(5,-len);
+    vertex(5,0);
+    endShape();
+  }
 
   this.checkConstraints = (coral) => {
     if (coral.width < coral.minwidth){
@@ -92,8 +107,8 @@ function Coral(x,y) {
       coral[i].b2 = random(this.b2-50,this.b2+50);
       coral[i].length = random(this.length-4,this.length+4);
       coral[i].angle = random(this.angle-PI/8,this.angle+PI/8);
-      coral[i].strokeWidth = random(this.strokeWidth*0.7,this.strokeWidth*1.3);
-      coral[i].strokeWidth2 = random(this.strokeWidth2*0.7,this.strokeWidth2*1.3);
+      // coral[i].strokeWidth = random(this.strokeWidth*0.7,this.strokeWidth*1.3);
+      // coral[i].strokeWidth2 = random(this.strokeWidth2*0.7,this.strokeWidth2*1.3);
       this.checkConstraints(this);
     }
   }
@@ -107,17 +122,16 @@ function Coral(x,y) {
 
   this.renderL = (l,length) => {
     translate(this.x,this.y);
-    stroke(this.r,this.g,this.b, 100);
+    stroke(this.r2,this.g2,this.b2);
     for (var i = 0; i < l.length; i++) {
       let current = l[i];
       if (current == "F"){
-        strokeWeight(this.strokeWidth);
-        line(0,0,0,-length);
+        strokeWeight(0.8);
+        this.shape(length);
         translate(0,-length);
       } else if (current == "X"){
-        strokeWeight(this.strokeWidth2);
-        stroke(this.r2,this.g2,this.b2,100);
-        line(0,0,0,-length);
+        strokeWeight(0.8);
+        this.shape(length);
         translate(0,-length);
       } else if (current == "+"){
         rotate(this.angle);
