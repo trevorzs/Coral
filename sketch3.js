@@ -4,31 +4,41 @@ var bubbles = [];
 let axiom = "F";
 let rules = [];
 let sentence;
+
 rules[0] = {
   a: "F",
-  b: "FF+[+F-F-F]-[-F+F+F]"
+  b: "+[+FF]-[-F+F+F]F"
 }
+
 rules[1] = {
   a: "F",
-  b: "+F[+F-F-F]-[-F+F+F]F"
+  b: "+[+F-F-F]F-[-F+F+F]FF"
 }
+
 rules[2] = {
   a: "F",
-  b: "+FF[+F-F-F]-[-F+F+F]"
+  b: "FF+[+F-F]-[-F]"
 }
 
 function setup() {
-  createCanvas(1200, 600);
+  createCanvas(1080, 600);
   for (var i = 0; i < 15; i++) {
     bubbles.push(new Bubble());
   }
   for (var i = 1; i < 9; i++) {
-    coral.push(new Coral(350+i*50,500));
+    coral.push(new Coral(300+i*50,500));
   }
 }
 
 function draw() {
   background(50, 89, 100);
+  fill(255);
+  push();
+  translate(-75,-100);
+  textSize(36);
+  textFont('Handlee');
+  text("Coral",width/2,height/2);
+  pop();
   noStroke();
   fill(92, 65, 37);
   rect(0,500,1200,100);
@@ -71,20 +81,51 @@ function Coral(x,y) {
   this.height = random(this.minheight,200);
   this.minlength = 3;
   this.length = random(this.minlength,10);
-  this.angle = random([random(-PI/4,-PI/12),random(PI/12,PI/4)]);
+  this.minwid = 2;
+  this.wid = random(this.minwid,10);
+  this.angle = random([random(-PI/6,-PI/10),random(PI/10,PI/6)]);
   // this.angle = PI/6;
   this.lendiff = random(0.1,0.9);
   this.complexity = random(2,3);
+  this.curvature = random(-20,20);
+
+  this.generate = (sentence,len,times,lendiff) => {
+    if (times > 0){
+      let nextSentence = "";
+      for (let i = 0; i < sentence.length; i++) {
+        let current = sentence[i];
+        let found = false;
+        if (current == rules[(random([0,1,2]))].a){
+          nextSentence += rules[(random([0,1,2]))].b;
+          found = true;
+        }
+        if (!found){
+          nextSentence += current;
+        }
+      }
+      return this.generate(nextSentence,len*lendiff,times-1);
+    }
+    return sentence;
+  }
+
+  this.l = this.generate(axiom,this.len,this.complexity,this.lendiff);
   // this.complexity = 0;
   // this.strokeWidth = random(1,4);
   // this.strokeWidth2 = random(1,4);
   this.shape = (len) =>{
     fill(this.r,this.g,this.b);
+    line(0,0,0,-len);
     beginShape();
+    // curveVertex(0,0);
+    // curveVertex(-10,0);
+    // curveVertex(-15,-20);
+    // curveVertex(0,0);
     vertex(0,0);
+    // bezierVertex(this.curvature,-len,-this.curvature,-len,0,0);
+
     vertex(0,-len);
-    vertex(5,-len);
-    vertex(5,0);
+    vertex(this.wid,-len);
+    vertex(this.wid,0);
     endShape();
   }
 
@@ -99,14 +140,16 @@ function Coral(x,y) {
 
   this.clicked = () => {
     for (var i = 0; i < coral.length; i++) {
-      coral[i].r = random(this.r-50,this.r+50);
-      coral[i].g = random(this.g-50,this.g+50);
-      coral[i].b = random(this.b-50,this.b+50);
-      coral[i].r2 = random(this.r2-50,this.r2+50);
-      coral[i].g2 = random(this.g2-50,this.g2+50);
-      coral[i].b2 = random(this.b2-50,this.b2+50);
-      coral[i].length = random(this.length-4,this.length+4);
-      coral[i].angle = random(this.angle-PI/8,this.angle+PI/8);
+      coral[i].r = random(this.r-30,this.r+30);
+      coral[i].g = random(this.g-30,this.g+30);
+      coral[i].b = random(this.b-30,this.b+30);
+      coral[i].r2 = random(this.r2-30,this.r2+30);
+      coral[i].g2 = random(this.g2-30,this.g2+30);
+      coral[i].b2 = random(this.b2-30,this.b2+30);
+      coral[i].length = random(this.length-2,this.length+2);
+      coral[i].angle = random(this.angle-PI/12,this.angle+PI/12);
+      coral[i].curvature = random(this.curvature-2,this.curvature+2);
+      coral[i].wid = random(this.wid-1,this.wid+1);
       // coral[i].strokeWidth = random(this.strokeWidth*0.7,this.strokeWidth*1.3);
       // coral[i].strokeWidth2 = random(this.strokeWidth2*0.7,this.strokeWidth2*1.3);
       this.checkConstraints(this);
@@ -114,9 +157,8 @@ function Coral(x,y) {
   }
 
   this.render = () => {
-    const l = this.generate(axiom,this.len,this.complexity,this.lendiff);
     push();
-    this.renderL(l,this.length);
+    this.renderL(this.l,this.length);
     pop();
   }
 
@@ -125,6 +167,7 @@ function Coral(x,y) {
     stroke(this.r2,this.g2,this.b2);
     for (var i = 0; i < l.length; i++) {
       let current = l[i];
+      let len = length;
       if (current == "F"){
         strokeWeight(0.8);
         this.shape(length);
@@ -141,30 +184,10 @@ function Coral(x,y) {
         push();
       } else if (current == "]"){
         pop();
+      } else if (current == "/"){
+        len = len*0.5;
       }
     }
-  }
-
-  this.generate = (sentence,len,times,lendiff) => {
-    if (times > 0){
-      let nextSentence = "";
-      for (let i = 0; i < sentence.length; i++) {
-        let current = sentence[i];
-        let found = false;
-        for (let j = 0; j < rules.length; j++) {
-          if (current == rules[j].a){
-            nextSentence += rules[j].b;
-            found = true;
-            break;
-          }
-        }
-        if (!found){
-          nextSentence += current;
-        }
-      }
-      return this.generate(nextSentence,len*lendiff,times-1);
-    }
-    return sentence;
   }
 
 }
