@@ -25,7 +25,7 @@ rules[2] = {
 
 
 function setup() {
-  createCanvas(window.innerWidth, window.innerHeight);
+  createCanvas(screen.width, screen.height);
   button = createButton("Regenerate Coral");
   button.mouseClicked(generate);
   button.id("regenerate");
