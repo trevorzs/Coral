@@ -7,6 +7,7 @@ let sentence;
 
 let isStroke = false;
 let diff = 0;
+let temp;
 
 rules[0] = {
   a: "F",
@@ -29,6 +30,11 @@ let sheight = window.innerHeight;
 if (typeof window.orientation !== 'undefined') {
   swidth = screen.width;
   sheight = screen.height;
+  if (swidth = sheight){
+    temp = swidth;
+    swidth = sheight;
+    sheight = temp;
+  }
 }
 
 function setup() {
@@ -58,7 +64,13 @@ function windowResized(){
   if (typeof window.orientation !== 'undefined') {
     swidth = screen.width;
     sheight = screen.height;
+    if (swidth = sheight){
+      temp = swidth;
+      swidth = sheight;
+      sheight = temp;
+    }
   }
+  
   for (var i = 0; i < coral.length; i++) {
     coral[i].x = swidth/3+i*swidth/23 + swidth/21;
     coral[i].y = sheight-100;
