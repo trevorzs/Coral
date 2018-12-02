@@ -137,7 +137,7 @@ function draw() {
   }
 }
 
-function touchStarted() {
+function touchEnded() {
   for (var i = 0; i < coral.length; i++) {
     if (mouseX < coral[i].x+coral[i].width/2 && mouseX > coral[i].x-coral[i].width/2){
       if (mouseY < coral[i].y && mouseY > coral[i].y - coral[i].height){
