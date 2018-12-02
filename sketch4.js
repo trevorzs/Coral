@@ -8,6 +8,8 @@ let sentence;
 let isStroke = false;
 let diff = 0;
 let temp;
+let colorSliderChanged = false;
+let strucSliderChanged = false;
 
 rules[0] = {
   a: "F",
@@ -36,10 +38,19 @@ if (swidth < 600){
   spacing = 45;
 }
 
+let colorSlider, structureSlider;
+let colVariance, strucVariance;
+
 
 
 function setup() {
   let canvas = createCanvas(swidth, sheight);
+  colorSlider = createSlider(0,1,0.5,0.01);
+  colorSlider.changed(setColorVariance);
+  structureSlider = createSlider(0,1,0.5,0.01);
+  structureSlider.changed(setStrucVariance);
+  colorSlider.position(20,20);
+  structureSlider.position(20,50);
   canvas.parent('main');
   button = createButton("Regenerate Coral");
   button.mouseClicked(generate);
@@ -47,14 +58,26 @@ function setup() {
   for (var i = 0; i < 15; i++) {
     bubbles.push(new Bubble());
   }
-  for (var i = 1; i < 8; i++) {
+  for (var i = 1; i < 7; i++) {
     coral.push(new Coral(offset+i*spacing,sheight-100));
   }
 }
 
+function setColorVariance(){
+  colorSliderChanged = true;
+}
+
+function setStrucVariance(){
+  strucSliderChanged = true;
+}
+
 function generate(){
+  colorSliderChanged = false;
+  strucSliderChanged = false;
+  colorSlider.value(0.5);
+  structureSlider.value(0.5);
   coral = [];
-  for (var i = 1; i < 8; i++) {
+  for (var i = 1; i < 7; i++) {
     coral.push(new Coral(offset+i*spacing,sheight-100));
   }
 }
@@ -99,6 +122,11 @@ function draw() {
   }
   fill(255);
   push();
+  textSize(12);
+  text(`Color Mutation Rate: ${colorSlider.value()}`, colorSlider.x * 2 + colorSlider.width, 30);
+  text(`Structural Mutation Rate: ${structureSlider.value()}`, structureSlider.x * 2 + structureSlider.width, 70);
+  pop();
+  push();
   translate(-75,-100);
   textSize(36);
   textFont('Monoton');
@@ -115,11 +143,13 @@ function touchStarted() {
       if (mouseY < coral[i].y && mouseY > coral[i].y - coral[i].height){
         coral[i].clicked();
         coral[i].render();
+        isStroke = false;
       }
     }else if (touches.length > 0 && touches[0].x < coral[i].x+coral[i].width/2 && touches[0].x > coral[i].x-coral[i].width/2){
       if (touches[0].y < coral[i].y && touches[0].y > coral[i].y - coral[i].height){
         coral[i].clicked();
         coral[i].render();
+        isStroke = false;
       }
     }
   }
@@ -141,15 +171,17 @@ function Coral(x,y) {
   this.minwid = 2;
   this.wid = random(this.minwid,10);
   this.angle = random([random(-PI/6,-PI/10),random(PI/10,PI/6)]);
-  // this.angle = PI/6;
   this.lendiff = random(0.1,0.9);
-  this.complexity=3;
+  this.complexity=random([2,3]);
   this.curvature = random(-20,20);
   this.sturdiness = 0.002;
   this.flex = 0.0002;
   this.diff = random(-0.001,0.001);
+  this.structuralVariance = random(0.02,0.4);
+  this.colorVariance = random(0.02,0.3);
+  this.colorVariation = random(5,40);
 
-  this.generate = (sentence,len,times) => {
+  this.generate = (sentence,times) => {
     if (times > 0){
       let nextSentence = "";
       for (let i = 0; i < sentence.length; i++) {
@@ -163,12 +195,12 @@ function Coral(x,y) {
           nextSentence += current;
         }
       }
-      return this.generate(nextSentence,len,times-1);
+      return this.generate(nextSentence,times-1);
     }
     return sentence;
   }
 
-  this.l = this.generate(axiom,this.len,this.complexity,this.lendiff);
+  this.l = this.generate(axiom,this.complexity);
   // this.complexity = 0;
   // this.strokeWidth = random(1,4);
   // this.strokeWidth2 = random(1,4);
@@ -199,14 +231,71 @@ function Coral(x,y) {
     if (coral.angle > PI/6){
       coral.angle = PI/6;
     }
+    if (coral.colorVariance > 0.3){
+      coral.colorVariance = random(0.27,0.3);
+    }
+    if (coral.structuralVariance > 0.4){
+      coral.structuralVariance = random(0.36,0.4);
+    }
+
+    if (coral.r < 0){
+      coral.r = random(0,10);
+    }
+    if (coral.r > 255){
+      coral.r = random(245,255);
+    }
+    if (coral.g < 0){
+      coral.g = random(0,10);
+    }
+    if (coral.g > 255){
+      coral.g = random(245,255);
+    }
+    if (coral.b < 0){
+      coral.b = random(0,10);
+    }
+    if (coral.b > 255){
+      coral.b = random(245,255);
+    }
+    if (coral.r2 < 0){
+      coral.r2 = random(0,10);
+    }
+    if (coral.r2 > 255){
+      coral.r2 = random(245,255);
+    }
+    if (coral.g2 < 0){
+      coral.g2 = random(0,10);
+    }
+    if (coral.g2 > 255){
+      coral.g2 = random(245,255);
+    }
+    if (coral.b2 < 0){
+      coral.b2 = random(0,10);
+    }
+    if (coral.b2 > 255){
+      coral.b2 = random(245,255);
+    }
   }
 
   this.clicked = () => {
+    if (colorSliderChanged){
+      colVariance = colorSlider.value();
+    }else{
+
+      colorSlider.value(parseFloat((this.colorVariance + random(-0.02,0.02)).toFixed(2)));
+      colVariance = this.colorVariance;
+    }
+
+    if (strucSliderChanged){
+      strucVariance = structureSlider.value();
+    }else{
+      structureSlider.value(parseFloat((this.structuralVariance + random(-0.02,0.02)).toFixed(2)));
+      strucVariance = this.structuralVariance;
+    }
     for (var i = 0; i < coral.length; i++) {
-      let difference = 15;
+      let difference = this.colorVariation;
       let roll = random(1);
-      if (roll >0.9){
-        difference = 120;
+      if (roll < colVariance){
+        difference = 100;
       }
       coral[i].r = random(this.r-difference,this.r+difference);
       coral[i].g = random(this.g-difference,this.g+difference);
@@ -214,17 +303,40 @@ function Coral(x,y) {
       coral[i].r2 = random(this.r2-difference,this.r2+difference);
       coral[i].g2 = random(this.g2-difference,this.g2+difference);
       coral[i].b2 = random(this.b2-difference,this.b2+difference);
-      coral[i].length = random(this.length-2,this.length+2);
+      coral[i].length = random(this.length-1,this.length+1);
       coral[i].angle = random(this.angle-PI/32,this.angle+PI/32);
       coral[i].curvature = random(this.curvature-2,this.curvature+2);
-      coral[i].wid = random(this.wid-1,this.wid+1);
+      coral[i].wid = random(this.wid-3,this.wid+3);
+      coral[i].colorVariance = colorSlider.value();
+      coral[i].structuralVariance = structureSlider.value();
+
       roll = random(1);
-      if (roll <0.9){
+      if (roll > strucVariance){
         coral[i].l = this.l;
+      }else{
+        coral[i].generate = (sentence,times) => {
+          if (times > 0){
+            let nextSentence = "";
+            for (let i = 0; i < sentence.length; i++) {
+              let current = sentence[i];
+              let found = false;
+              if (current == rules[(random([0,1,2]))].a){
+                nextSentence += rules[(random([0,1,2]))].b;
+                found = true;
+              }
+              if (!found){
+                nextSentence += current;
+              }
+            }
+            return this.generate(nextSentence,times-1);
+          }
+          return sentence;
+        }
+        coral[i].l = coral[i].generate(axiom,random([2,3]));
       }
       // coral[i].strokeWidth = random(this.strokeWidth*0.7,this.strokeWidth*1.3);
       // coral[i].strokeWidth2 = random(this.strokeWidth2*0.7,this.strokeWidth2*1.3);
-      this.checkConstraints(this);
+      coral[i].checkConstraints(coral[i],this);
     }
   }
 
