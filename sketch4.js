@@ -24,8 +24,18 @@ rules[2] = {
   b: "→F[+F]F[-F][F]"
 }
 
-swidth = document.documentElement.clientWidth;
-sheight = document.documentElement.clientHeight;
+let swidth = document.documentElement.clientWidth;
+let sheight = document.documentElement.clientHeight;
+let offset = swidth/3;
+let spacing = swidth/22;
+if (swidth/22 < 45){
+  spacing = 45;
+}
+if (swidth < 600){
+  offset = 30;
+  spacing = 45;
+}
+
 
 
 function setup() {
@@ -37,28 +47,39 @@ function setup() {
     bubbles.push(new Bubble());
   }
   for (var i = 1; i < 8; i++) {
-    coral.push(new Coral(swidth/3+i*swidth/23,sheight-100));
+    coral.push(new Coral(offset+i*spacing,sheight-100));
   }
 }
 
 function generate(){
   coral = [];
   for (var i = 1; i < 8; i++) {
-    coral.push(new Coral(swidth/3+i*swidth/23,sheight-100));
+    coral.push(new Coral(offset+i*spacing,sheight-100));
   }
 }
 
-function windowResized(){
+function resize(){
   swidth = document.documentElement.clientWidth;
   sheight = document.documentElement.clientHeight;
+  offset = swidth/3;
+  spacing = swidth/22;
+  if (swidth/22 < 45){
+    spacing = 45;
+  }
+  if (swidth < 600){
+    offset = 30;
+    spacing = 45;
+  }
 
   for (var i = 0; i < coral.length; i++) {
-    coral[i].x = swidth/3+i*swidth/23 + swidth/21;
+    coral[i].x = offset+i*spacing + swidth/21;
     coral[i].y = sheight-100;
   }
 }
 
 function draw() {
+  window.addEventListener('resize',resize, false);
+  window.addEventListener('orientationchange',resize,false);
   background(50, 89, 100);
   button.position(swidth-200,50);
   noStroke();
@@ -262,8 +283,8 @@ function Coral(x,y) {
 
 
 function Bubble() {
-  this.x = random(width);
-  this.y = random(height);
+  this.x = random(swidth);
+  this.y = random(sheight);
   this.hspeed = 1;
   this.vspeed = random(-2,-0.8);
   this.diameter = random(5,20);
@@ -277,8 +298,8 @@ function Bubble() {
   }
 
   this.reset = () => {
-    this.y = height+this.diameter;
-    this.x = random(width);
+    this.y = sheight+this.diameter;
+    this.x = random(swidth);
     this.diameter = random(5,20);
   }
 
