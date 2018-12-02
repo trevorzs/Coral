@@ -106,7 +106,7 @@ function draw() {
   window.addEventListener('resize',resize, false);
   window.addEventListener('orientationchange',resize,false);
   background(50, 89, 100);
-  button.position(swidth-200,50);
+  button.position(swidth-200,80);
   noStroke();
   fill(156, 118, 73);
   rect(0,sheight-100,swidth,100);
