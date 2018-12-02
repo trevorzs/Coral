@@ -116,6 +116,11 @@ function mouseClicked() {
         coral[i].clicked();
         coral[i].render();
       }
+    }else if (touches.length > 0 && touches[0].x < coral[i].x+coral[i].width/2 && touches[0].x > coral[i].x-coral[i].width/2){
+      if (touches[0].y < coral[i].y && touches[0].y > coral[i].y - coral[i].height){
+        coral[i].clicked();
+        coral[i].render();
+      }
     }
   }
 
