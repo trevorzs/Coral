@@ -6,6 +6,7 @@ let rules = [];
 let sentence;
 
 let isStroke = false;
+let diff = 0;
 
 rules[0] = {
   a: "F",
@@ -19,8 +20,9 @@ rules[1] = {
 
 rules[2] = {
   a: "F",
-  b: "F+[+F-F]-[-F]FF"
+  b: "→F[+F]F[-F][F]"
 }
+
 
 
 function setup() {
@@ -46,13 +48,6 @@ function generate(){
 
 function draw() {
   background(50, 89, 100);
-  fill(255);
-  push();
-  translate(-75,-100);
-  textSize(36);
-  textFont('Monoton');
-  text("coral",width/2,height/2);
-  pop();
   noStroke();
   fill(156, 118, 73);
   rect(0,500,1200,100);
@@ -63,7 +58,17 @@ function draw() {
     bubbles[i].move();
   }
   noStroke();
-  for (var i = 0; i < coral.length; i++) {
+  for (var i = 0; i < coral.length; i+= 2) {
+    coral[i].render();
+  }
+  fill(255);
+  push();
+  translate(-75,-100);
+  textSize(36);
+  textFont('Monoton');
+  text("coral",width/2,height/2);
+  pop();
+  for (var i = 1; i < coral.length; i+= 2) {
     coral[i].render();
   }
 }
@@ -100,6 +105,9 @@ function Coral(x,y) {
   this.lendiff = random(0.1,0.9);
   this.complexity=3;
   this.curvature = random(-20,20);
+  this.sturdiness = 0.002;
+  this.flex = 0.0002;
+  this.diff = random(-0.001,0.001);
 
   this.generate = (sentence,len,times) => {
     if (times > 0){
@@ -181,6 +189,12 @@ function Coral(x,y) {
   }
 
   this.render = () => {
+    this.diff += this.flex;
+    if (this.diff > this.sturdiness){
+      this.flex = -this.flex;
+    } else if (this.diff < -this.sturdiness){
+      this.flex = -this.flex;
+    }
     if (mouseX < this.x+this.width/2 && mouseX > this.x-this.width/2){
       if (mouseY < this.y && mouseY > this.y - this.height){
         isStroke = true;
@@ -191,12 +205,12 @@ function Coral(x,y) {
       isStroke = false;
     }
     push();
-    this.renderL(this.l,this.length);
+    this.renderL(this.l,this.length,this.diff);
     pop();
 
   }
 
-  this.renderL = (l,length) => {
+  this.renderL = (l,length,diff) => {
     translate(this.x,this.y);
     stroke(this.r2,this.g2,this.b2);
     if (isStroke){
@@ -218,9 +232,9 @@ function Coral(x,y) {
         this.shape(len);
         translate(0,-len);
       } else if (current == "+"){
-        rotate(this.angle);
+        rotate(this.angle-diff);
       } else if (current == "-"){
-        rotate(-this.angle);
+        rotate(-this.angle-diff);
       } else if (current == "["){
         push();
       } else if (current == "]"){
