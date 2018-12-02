@@ -177,8 +177,8 @@ function Coral(x,y) {
   this.sturdiness = 0.002;
   this.flex = 0.0002;
   this.diff = random(-0.001,0.001);
-  this.structuralVariance = random(0.02,0.4);
-  this.colorVariance = random(0.02,0.3);
+  this.structuralVariance = random(0.02,0.25);
+  this.colorVariance = random(0.02,0.2);
   this.colorVariation = random(5,40);
 
   this.generate = (sentence,times) => {
