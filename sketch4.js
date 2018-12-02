@@ -33,14 +33,14 @@ function setup() {
   for (var i = 0; i < 15; i++) {
     bubbles.push(new Bubble());
   }
-  for (var i = 1; i < 9; i++) {
+  for (var i = 1; i < 8; i++) {
     coral.push(new Coral(window.innerWidth/3+i*window.innerWidth/25,window.innerHeight-100));
   }
 }
 
 function generate(){
   coral = [];
-  for (var i = 1; i < 9; i++) {
+  for (var i = 1; i < 8; i++) {
     coral.push(new Coral(window.innerWidth/3+i*window.innerWidth/25,window.innerHeight-100));
   }
 }
