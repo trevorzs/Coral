@@ -24,8 +24,8 @@ rules[2] = {
   b: "→F[+F]F[-F][F]"
 }
 
-let swidth = window.innerWidth;
-let sheight = window.innerHeight;
+let swidth = document.documentElement.clientWidth;
+let sheight = document.documentElement.clientHeight;
 let offset = swidth/3;
 let spacing = swidth/22;
 if (swidth/22 < 45){
@@ -60,8 +60,8 @@ function generate(){
 }
 
 function resize(){
-  swidth = window.innerWidth;
-  sheight = window.innerHeight;
+  swidth = document.documentElement.clientWidth;
+  sheight = document.documentElement.clientHeight;
   resizeCanvas(swidth,sheight);
   offset = swidth/3;
   spacing = swidth/22;
