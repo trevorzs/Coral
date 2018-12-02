@@ -24,8 +24,8 @@ rules[2] = {
   b: "→F[+F]F[-F][F]"
 }
 
-let swidth = document.documentElement.clientWidth;
-let sheight = document.documentElement.clientHeight;
+let swidth = window.innerWidth;
+let sheight = window.innerHeight;
 let offset = swidth/3;
 let spacing = swidth/22;
 if (swidth/22 < 45){
@@ -60,6 +60,10 @@ function generate(){
 }
 
 function resize(){
+  swidth = window.innerWidth;
+  sheight = window.innerHeight;
+  resizeCanvas(swidth,sheight);
+  resize();
   offset = swidth/3;
   spacing = swidth/22;
   if (swidth/22 < 45){
@@ -76,23 +80,9 @@ function resize(){
   }
 }
 
-function resizeOrientation(){
-  swidth = document.documentElement.clientWidth;
-  sheight = document.documentElement.clientHeight;
-  resizeCanvas(swidth,sheight);
-  resize();
-}
-
-function resizeGeneral(){
-  swidth = document.documentElement.clientWidth;
-  sheight = document.documentElement.clientHeight;
-  resizeCanvas(swidth,sheight);
-  resize();
-}
-
 function draw() {
-  window.addEventListener('resize',resizeGeneral, false);
-  window.addEventListener('orientationchange',resizeOrientation,false);
+  window.addEventListener('resize',resize, false);
+  window.addEventListener('orientationchange',resize,false);
   background(50, 89, 100);
   button.position(swidth-200,50);
   noStroke();
