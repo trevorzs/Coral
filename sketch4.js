@@ -26,31 +26,38 @@ rules[2] = {
 
 
 function setup() {
-  createCanvas(1080, 600);
+  createCanvas(screen.width, screen.height);
   button = createButton("Regenerate Coral");
   button.mouseClicked(generate);
   button.id("regenerate");
-  button.position(width-200,50);
   for (var i = 0; i < 15; i++) {
     bubbles.push(new Bubble());
   }
   for (var i = 1; i < 9; i++) {
-    coral.push(new Coral(300+i*50,500));
+    coral.push(new Coral(window.innerWidth/3+i*window.innerWidth/25,window.innerHeight-100));
   }
 }
 
 function generate(){
   coral = [];
   for (var i = 1; i < 9; i++) {
-    coral.push(new Coral(300+i*50,500));
+    coral.push(new Coral(window.innerWidth/3+i*window.innerWidth/25,window.innerHeight-100));
+  }
+}
+
+function windowResized(){
+  for (var i = 0; i < coral.length; i++) {
+    coral[i].x = window.innerWidth/3+i*window.innerWidth/25 + window.innerWidth/21;
+    coral[i].y = window.innerHeight-100;
   }
 }
 
 function draw() {
   background(50, 89, 100);
+  button.position(window.innerWidth-200,50);
   noStroke();
   fill(156, 118, 73);
-  rect(0,500,1200,100);
+  rect(0,window.innerHeight-100,window.innerWidth,100);
   stroke(255);
   noFill();
   for (var i = 0; i < bubbles.length; i++) {
@@ -66,7 +73,7 @@ function draw() {
   translate(-75,-100);
   textSize(36);
   textFont('Monoton');
-  text("coral",width/2,height/2);
+  text("coral",window.innerWidth/2,window.innerHeight/2);
   pop();
   for (var i = 1; i < coral.length; i+= 2) {
     coral[i].render();
