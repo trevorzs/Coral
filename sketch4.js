@@ -24,18 +24,9 @@ rules[2] = {
   b: "→F[+F]F[-F][F]"
 }
 
-let swidth = window.innerWidth;
-let sheight = window.innerHeight;
+swidth = document.documentElement.clientWidth;
+sheight = document.documentElement.clientHeight;
 
-if (typeof window.orientation !== 'undefined') {
-  swidth = screen.width;
-  sheight = screen.height;
-  if (swidth = sheight){
-    temp = swidth;
-    swidth = sheight;
-    sheight = temp;
-  }
-}
 
 function setup() {
   createCanvas(screen.width, screen.height);
@@ -58,19 +49,9 @@ function generate(){
 }
 
 function windowResized(){
-  swidth = window.innerWidth;
-  sheight = window.innerHeight;
+  swidth = document.documentElement.clientWidth;
+  sheight = document.documentElement.clientHeight;
 
-  if (typeof window.orientation !== 'undefined') {
-    swidth = screen.width;
-    sheight = screen.height;
-    if (swidth = sheight){
-      temp = swidth;
-      swidth = sheight;
-      sheight = temp;
-    }
-  }
-  
   for (var i = 0; i < coral.length; i++) {
     coral[i].x = swidth/3+i*swidth/23 + swidth/21;
     coral[i].y = sheight-100;
