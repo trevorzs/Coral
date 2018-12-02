@@ -39,7 +39,8 @@ if (swidth < 600){
 
 
 function setup() {
-  createCanvas(screen.width, screen.height);
+  let canvas = createCanvas(screen.width, screen.height);
+  canvas.parent('main');
   button = createButton("Regenerate Coral");
   button.mouseClicked(generate);
   button.id("regenerate");
@@ -61,6 +62,7 @@ function generate(){
 function resize(){
   swidth = document.documentElement.clientWidth;
   sheight = document.documentElement.clientHeight;
+  resizeCanvas(swidth,sheight);
   offset = swidth/3;
   spacing = swidth/22;
   if (swidth/22 < 45){
