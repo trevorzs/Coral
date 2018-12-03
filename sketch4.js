@@ -14,6 +14,7 @@ let clicked = false;
 let textmin = 3;
 let textchange = 0.5;
 let textpos = 0;
+let touched = false;
 
 
 rules[0] = {
@@ -163,8 +164,15 @@ function draw() {
   }
 }
 
+function touchStarted(){
+  if (!touched){
+    touched = true;
+  }
+}
+
 function touchEnded() {
-  if (!modalUp){
+  if (!modalUp && touched){
+    touched = false;
     for (var i = 0; i < coral.length; i++) {
       if (mouseX < coral[i].x+coral[i].width/2 && mouseX > coral[i].x-coral[i].width/2){
         if (mouseY < coral[i].y && mouseY > coral[i].y - coral[i].height){
