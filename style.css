@@ -43,6 +43,7 @@ canvas{
 
 .modal-content {
   position: relative;
+  text-align: center;
   background-color: #fefefe;
   margin: auto;
   padding: 0;

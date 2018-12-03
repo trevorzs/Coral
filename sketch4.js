@@ -40,8 +40,8 @@ if (swidth/22 < 45){
   spacing = 45;
 }
 if (swidth < 600){
-  offset = 30;
-  spacing = 45;
+  offset = 20;
+  spacing = 50;
 }
 
 let colorSlider, structureSlider;
@@ -55,9 +55,9 @@ function setup() {
   colorSlider.changed(setColorVariance);
   structureSlider = createSlider(0,1,0.1,0.01);
   structureSlider.changed(setStrucVariance);
-  colorSlider.position(20,20);
+  colorSlider.position(20,sheight/20);
   colorSlider.style("display","none");
-  structureSlider.position(20,50);
+  structureSlider.position(20,sheight/10);
   structureSlider.style("display","none");
   canvas.parent('main');
   button = createButton("Regenerate Coral");
@@ -67,7 +67,7 @@ function setup() {
     bubbles.push(new Bubble());
   }
   for (var i = 1; i < 7; i++) {
-    coral.push(new Coral(offset+i*spacing,sheight-100));
+    coral.push(new Coral(offset+i*spacing,sheight-sheight/10));
   }
 }
 
@@ -87,7 +87,7 @@ function generate(){
   structureSlider.value(0.1);
   coral = [];
   for (var i = 1; i < 7; i++) {
-    coral.push(new Coral(offset+i*spacing,sheight-100));
+    coral.push(new Coral(offset+i*spacing,sheight-sheight/10));
   }
 }
 
@@ -107,7 +107,7 @@ function resize(){
 
   for (var i = 0; i < coral.length; i++) {
     coral[i].x = offset+i*spacing + swidth/21;
-    coral[i].y = sheight-100;
+    coral[i].y = sheight-sheight/10;
   }
 }
 
@@ -115,10 +115,10 @@ function draw() {
   window.addEventListener('resize',resize, false);
   window.addEventListener('orientationchange',resize,false);
   background(50, 89, 100);
-  button.position(swidth-200,80);
+  button.position(swidth-200,sheight/6);
   noStroke();
   fill(156, 118, 73);
-  rect(0,sheight-100,swidth,100);
+  rect(0,sheight-sheight/10,swidth,100);
   stroke(255);
   noFill();
   for (var i = 0; i < bubbles.length; i++) {
@@ -135,8 +135,8 @@ function draw() {
     structureSlider.style("display","block");
     push();
     textSize(12);
-    text(`Color Mutation Rate: ${colorSlider.value()}`, colorSlider.x * 2 + colorSlider.width, 30);
-    text(`Structural Mutation Rate: ${structureSlider.value()}`, structureSlider.x * 2 + structureSlider.width, 70);
+    text(`Color Mutation Rate: ${colorSlider.value()}`, colorSlider.x * 2 + colorSlider.width, sheight/20+10);
+    text(`Structural Mutation Rate: ${structureSlider.value()}`, structureSlider.x * 2 + structureSlider.width, sheight/10+10);
     pop();
   }else{
     colorSlider.style("display","none");
@@ -213,9 +213,9 @@ function Coral(x,y) {
   this.sturdiness = 0.002;
   this.flex = 0.0002;
   this.diff = random(-0.001,0.001);
-  this.structuralVariance = random(0.02,0.25);
+  this.structuralVariance = random(0.1,0.25);
   this.colorVariance = random(0.02,0.2);
-  this.colorVariation = random(5,40);
+  this.colorVariation = random(30,50);
 
   this.generate = (sentence,times) => {
     if (times > 0){
@@ -250,7 +250,6 @@ function Coral(x,y) {
     // curveVertex(0,0);
     vertex(0,0);
     // bezierVertex(this.curvature,-len,-this.curvature,-len,0,0);
-
     vertex(0,-len);
     vertex(this.wid,-len);
     vertex(this.wid,0);
@@ -416,6 +415,12 @@ function Coral(x,y) {
 
   this.renderL = (l,length,diff) => {
     translate(this.x,this.y);
+    if (swidth<700){
+      scale(0.7,0.7);
+    }
+    if (swidth>1200){
+      scale(1.25,1.25);
+    }
     stroke(this.r2,this.g2,this.b2);
     if (isStroke){
       if ((this.r2 > 200 && this.g2 > 200 && this.b2 > 200)||(this.r > 200 && this.g > 200 && this.r>200)){
