@@ -307,17 +307,27 @@ function Coral(x,y) {
       coral[i].r2 = random(this.r2-difference,this.r2+difference);
       coral[i].g2 = random(this.g2-difference,this.g2+difference);
       coral[i].b2 = random(this.b2-difference,this.b2+difference);
-      coral[i].length = random(this.length-1,this.length+1);
       coral[i].angle = random(this.angle-PI/32,this.angle+PI/32);
       coral[i].curvature = random(this.curvature-2,this.curvature+2);
-      coral[i].wid = random(this.wid-3,this.wid+3);
       coral[i].colorVariance = colorSlider.value();
       coral[i].structuralVariance = structureSlider.value();
 
       roll = random(1);
       if (roll > strucVariance){
         coral[i].l = this.l;
+        coral[i].length = random(this.length-0.5,this.length+0.5);
+        coral[i].wid = random(this.wid-1,this.wid+1);
       }else{
+        if (this.length > 16){
+          coral[i].length = random(this.length-1.5,this.length+1.5);
+        }else{
+          coral[i].length = random(this.length-4,this.length+4);
+        }
+        if (this.wid > 16){
+          coral[i].wid = random(this.wid-1.5,this.wid+1.5);
+        }else{
+          coral[i].wid = random(this.wid-4,this.wid+4);
+        }
         coral[i].generate = (sentence,times) => {
           if (times > 0){
             let nextSentence = "";
@@ -336,7 +346,7 @@ function Coral(x,y) {
           }
           return sentence;
         }
-        coral[i].l = coral[i].generate(axiom,random([2,3]));
+        coral[i].l = coral[i].generate(axiom,3);
       }
       // coral[i].strokeWidth = random(this.strokeWidth*0.7,this.strokeWidth*1.3);
       // coral[i].strokeWidth2 = random(this.strokeWidth2*0.7,this.strokeWidth2*1.3);
