@@ -10,6 +10,11 @@ let diff = 0;
 let temp;
 let colorSliderChanged = false;
 let strucSliderChanged = false;
+let clicked = false;
+let textmin = 3;
+let textchange = 0.5;
+let textpos = 0;
+
 
 rules[0] = {
   a: "F",
@@ -50,7 +55,9 @@ function setup() {
   structureSlider = createSlider(0,1,0.1,0.01);
   structureSlider.changed(setStrucVariance);
   colorSlider.position(20,20);
+  colorSlider.style("display","none");
   structureSlider.position(20,50);
+  structureSlider.style("display","none");
   canvas.parent('main');
   button = createButton("Regenerate Coral");
   button.mouseClicked(generate);
@@ -72,6 +79,7 @@ function setStrucVariance(){
 }
 
 function generate(){
+  clicked = false;
   colorSliderChanged = false;
   strucSliderChanged = false;
   colorSlider.value(0.1);
@@ -121,11 +129,29 @@ function draw() {
     coral[i].render();
   }
   fill(255);
-  push();
-  textSize(12);
-  text(`Color Mutation Rate: ${colorSlider.value()}`, colorSlider.x * 2 + colorSlider.width, 30);
-  text(`Structural Mutation Rate: ${structureSlider.value()}`, structureSlider.x * 2 + structureSlider.width, 70);
-  pop();
+  if (clicked){
+    colorSlider.style("display","block");
+    structureSlider.style("display","block");
+    push();
+    textSize(12);
+    text(`Color Mutation Rate: ${colorSlider.value()}`, colorSlider.x * 2 + colorSlider.width, 30);
+    text(`Structural Mutation Rate: ${structureSlider.value()}`, structureSlider.x * 2 + structureSlider.width, 70);
+    pop();
+  }else{
+    colorSlider.style("display","none");
+    structureSlider.style("display","none");
+    push();
+    translate(-63,-50);
+    textSize(12);
+    if (textpos > textmin || textpos < -textmin){
+      textchange = -textchange;
+    }
+    textpos += textchange;
+    text("Click to Evolve Coral",swidth/2,sheight/2);
+    text("↓",swidth/2 + 122,sheight/2 + textpos);
+    text("↓",swidth/2 -20,sheight/2 + textpos);
+    pop();
+  }
   push();
   translate(-75,-100);
   textSize(36);
@@ -281,6 +307,7 @@ function Coral(x,y) {
   }
 
   this.clicked = () => {
+    clicked = true;
     if (colorSliderChanged){
       colVariance = colorSlider.value();
     }else{
