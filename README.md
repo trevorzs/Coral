@@ -21,7 +21,9 @@ b: "F[+F]F[-F][F]"
 
 ## Functionality and MVP
 Click on a button to reset and reseed initial coral with randomized properties
+
 Click on a coral to generate a new set of coral based on clicked coral's "genetics"
+
 Sliders allow users to alter genetic change from one generation to the next
 
 ## Todo
