@@ -1,5 +1,5 @@
-var coral = [];
-var bubbles = [];
+let coral = [];
+let bubbles = [];
 
 let axiom = "F";
 let rules = [];
@@ -23,7 +23,7 @@ rules[1] = {
 
 rules[2] = {
   a: "F",
-  b: "→F[+F]F[-F][F]"
+  b: "F[+F]F[-F][F]"
 }
 
 let swidth = document.documentElement.clientWidth;
@@ -223,13 +223,17 @@ function Coral(x,y) {
 
   this.checkConstraints = (coral) => {
     if (coral.length < coral.minlength){
-      coral = coral.minlength;
+      coral.length = coral.minlength;
     }
     if (coral.angle < -PI/6){
       coral.angle = -PI/6;
     }
     if (coral.angle > PI/6){
       coral.angle = PI/6;
+    }
+
+    if (coral.angle < 0.1 && coral.angle > -0.1){
+      coral.angle = random([0.1,-0.1]);
     }
     if (coral.colorVariance > 0.3){
       coral.colorVariance = random(0.27,0.3);
@@ -341,6 +345,7 @@ function Coral(x,y) {
   }
 
   this.render = () => {
+    this.l.slice(0,-1);
     this.diff += this.flex;
     if (this.diff > this.sturdiness){
       this.flex = -this.flex;
