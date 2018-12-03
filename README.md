@@ -1,14 +1,15 @@
-##Background
-###Generative Art
+## Background
+#### Generative Art
 Generative Art refers to art that is created partly by an autonomous system. It can refer to art being primarily driven by complex algorithms or a mixture of machine and user input.
 
-###Coral
+#### Coral
 In this web app, Corals are generated using stochastic Lindenmayer Systems(l-systems). Each coral then stores different properties as a virtual "genotype". Clicking on a coral will cause a new set of coral to be generated, based on the "genetics" of the coral that was clicked. This allows for dynamic evolution of the coral guided by user input.
 
-###Stochastic Lindenmayer System
+#### Stochastic Lindenmayer System
 Lindenmayer Systems, better known as l-systems, are a popular type of formal grammar in algorithmic botany. They are useful in imitating different structures of plants based on the provided rules and axioms. For this web app, I have created three rules to apply to a single axiom. When generating the string to be interpreted, the algorithm may choose between the three rules with equal probability (thus making it stochastic). This creates a larger variation in shape and structure of the coral.
 
 Rules:
+
 a: "F",
 b: "+[+FF]-[-F+F+F]F"
 
@@ -18,19 +19,19 @@ b: "+[+F-F-F]F-[-F+F+F]-FF"
 a: "F",
 b: "F[+F]F[-F][F]"
 
-##Functionality and MVP
+## Functionality and MVP
 Click on a button to reset and reseed initial coral with randomized properties
 Click on a coral to generate a new set of coral based on clicked coral's "genetics"
 Sliders allow users to alter genetic change from one generation to the next
 
-##Wireframes
+## Wireframes
 This app will consist of a single screen with a simple canvas. The canvas will have a reset button, and contain a series of 8 coral that can be clicked on. Additionally, there will be a button linking to my Github.
 
-##Architecture and Technologies
+## Architecture and Technologies
 p5.js for rendering generative designs
 Stochastic Lindenmayer System for generation of fractal coral
 
-##Implementation Timeline
+## Implementation Timeline
 Day 1:
 Learn enough p5.js to generate simple designs
 
