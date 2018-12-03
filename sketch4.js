@@ -164,18 +164,20 @@ function draw() {
 }
 
 function touchEnded() {
-  for (var i = 0; i < coral.length; i++) {
-    if (mouseX < coral[i].x+coral[i].width/2 && mouseX > coral[i].x-coral[i].width/2){
-      if (mouseY < coral[i].y && mouseY > coral[i].y - coral[i].height){
-        coral[i].clicked();
-        coral[i].render();
-        isStroke = false;
-      }
-    }else if (touches.length > 0 && touches[0].x < coral[i].x+coral[i].width/2 && touches[0].x > coral[i].x-coral[i].width/2){
-      if (touches[0].y < coral[i].y && touches[0].y > coral[i].y - coral[i].height){
-        coral[i].clicked();
-        coral[i].render();
-        isStroke = false;
+  if (!modalUp){
+    for (var i = 0; i < coral.length; i++) {
+      if (mouseX < coral[i].x+coral[i].width/2 && mouseX > coral[i].x-coral[i].width/2){
+        if (mouseY < coral[i].y && mouseY > coral[i].y - coral[i].height){
+          coral[i].clicked();
+          coral[i].render();
+          isStroke = false;
+        }
+      }else if (touches.length > 0 && touches[0].x < coral[i].x+coral[i].width/2 && touches[0].x > coral[i].x-coral[i].width/2){
+        if (touches[0].y < coral[i].y && touches[0].y > coral[i].y - coral[i].height){
+          coral[i].clicked();
+          coral[i].render();
+          isStroke = false;
+        }
       }
     }
   }
