@@ -45,9 +45,9 @@ let colVariance, strucVariance;
 
 function setup() {
   let canvas = createCanvas(swidth, sheight);
-  colorSlider = createSlider(0,1,0.5,0.01);
+  colorSlider = createSlider(0,1,0.1,0.01);
   colorSlider.changed(setColorVariance);
-  structureSlider = createSlider(0,1,0.5,0.01);
+  structureSlider = createSlider(0,1,0.1,0.01);
   structureSlider.changed(setStrucVariance);
   colorSlider.position(20,20);
   structureSlider.position(20,50);
@@ -74,8 +74,8 @@ function setStrucVariance(){
 function generate(){
   colorSliderChanged = false;
   strucSliderChanged = false;
-  colorSlider.value(0.5);
-  structureSlider.value(0.5);
+  colorSlider.value(0.1);
+  structureSlider.value(0.1);
   coral = [];
   for (var i = 1; i < 7; i++) {
     coral.push(new Coral(offset+i*spacing,sheight-100));
