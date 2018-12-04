@@ -209,7 +209,6 @@ function Coral(x,y) {
   this.angle = random([random(-PI/6,-PI/10),random(PI/10,PI/6)]);
   this.lendiff = random(0.1,0.9);
   this.complexity=random([2,3]);
-  this.curvature = random(-20,20);
   this.sturdiness = 0.002;
   this.flex = 0.0002;
   this.diff = random(-0.001,0.001);
@@ -237,19 +236,11 @@ function Coral(x,y) {
   }
 
   this.l = this.generate(axiom,this.complexity);
-  // this.complexity = 0;
-  // this.strokeWidth = random(1,4);
-  // this.strokeWidth2 = random(1,4);
   this.shape = (len) =>{
     fill(this.r,this.g,this.b);
     line(0,0,0,-len);
     beginShape();
-    // curveVertex(0,0);
-    // curveVertex(-10,0);
-    // curveVertex(-15,-20);
-    // curveVertex(0,0);
     vertex(0,0);
-    // bezierVertex(this.curvature,-len,-this.curvature,-len,0,0);
     vertex(0,-len);
     vertex(this.wid,-len);
     vertex(this.wid,0);
@@ -344,7 +335,6 @@ function Coral(x,y) {
       coral[i].g2 = random(this.g2-difference,this.g2+difference);
       coral[i].b2 = random(this.b2-difference,this.b2+difference);
       coral[i].angle = random(this.angle-PI/32,this.angle+PI/32);
-      coral[i].curvature = random(this.curvature-2,this.curvature+2);
       coral[i].colorVariance = colorSlider.value();
       coral[i].structuralVariance = structureSlider.value();
 
@@ -384,8 +374,6 @@ function Coral(x,y) {
         }
         coral[i].l = coral[i].generate(axiom,3);
       }
-      // coral[i].strokeWidth = random(this.strokeWidth*0.7,this.strokeWidth*1.3);
-      // coral[i].strokeWidth2 = random(this.strokeWidth2*0.7,this.strokeWidth2*1.3);
       coral[i].checkConstraints(coral[i],this);
     }
   }
