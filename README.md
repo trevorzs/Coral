@@ -1,3 +1,6 @@
+## Coral
+Live Site: [trevorzs.github.io/Coral](trevorzs.github.io/Coral)  
+
 ## Background
 #### Generative Art
 Generative Art refers to art that is created partly by an autonomous system. It can refer to art being primarily driven by complex algorithms or a mixture of machine and user input. This web app is an interactive visualization of generative coral.
@@ -14,7 +17,7 @@ Click on a coral to generate a new set of coral based on clicked coral's "geneti
 
 Sliders allow users to alter genetic change from one generation to the next
 
-Touchscreen mobile web browser compatibility (play on your phone's browser!)
+Touchscreen mobile web browser compatibility (limited on Android)
 
 ## Screenshots
 

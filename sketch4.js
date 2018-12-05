@@ -10,12 +10,12 @@ let diff = 0;
 let temp;
 let colorSliderChanged = false;
 let strucSliderChanged = false;
-let clicked = false;
+let clicked = 0;
 let textmin = 3;
+let info = true;
 let textchange = 0.5;
 let textpos = 0;
 let touched = false;
-
 
 rules[0] = {
   a: "F",
@@ -80,7 +80,8 @@ function setStrucVariance(){
 }
 
 function generate(){
-  clicked = false;
+  clicked = 1;
+  info = false;
   colorSliderChanged = false;
   strucSliderChanged = false;
   colorSlider.value(0.1);
@@ -130,29 +131,44 @@ function draw() {
     coral[i].render();
   }
   fill(255);
-  if (clicked){
+  if (clicked >= 2){
     colorSlider.style("display","block");
     structureSlider.style("display","block");
     push();
     textSize(12);
-    text(`Color Mutation Rate: ${colorSlider.value()}`, colorSlider.x * 2 + colorSlider.width, sheight/20+10);
-    text(`Structural Mutation Rate: ${structureSlider.value()}`, structureSlider.x * 2 + structureSlider.width, sheight/10+10);
+    text(`Color Mutation Rate: ${parseInt(colorSlider.value()*100)}%`, colorSlider.x * 2 + colorSlider.width, colorSlider.y+10);
+    text(`Structural Mutation Rate: ${parseInt(structureSlider.value()*100)}%`, structureSlider.x * 2 + structureSlider.width, structureSlider.y+10);
     pop();
   }else{
     colorSlider.style("display","none");
     structureSlider.style("display","none");
-    push();
-    translate(-63,-50);
-    textSize(12);
-    if (textpos > textmin || textpos < -textmin){
-      textchange = -textchange;
-    }
-    textpos += textchange;
-    text("Click to Evolve Coral",swidth/2,sheight/2);
-    text("↓",swidth/2 + 122,sheight/2 + textpos);
-    text("↓",swidth/2 -20,sheight/2 + textpos);
-    pop();
   }
+
+  if (info){
+    switch (clicked) {
+      case 0:
+        push();
+        translate(-108,-50);
+        textSize(12);
+        if (textpos > textmin || textpos < -textmin){
+          textchange = -textchange;
+        }
+        textpos += textchange;
+        text("Select a Coral by Clicking on its Base",swidth/2,sheight/2);
+        text("↓",swidth/2 + 210,sheight/2 + textpos);
+        text("↓",swidth/2 -20,sheight/2 + textpos);
+        pop();
+        break;
+      case 1:
+        push();
+        translate(-138,-50);
+        textSize(12);
+        text("A New Generation has Evolved Based on its Traits!",swidth/2,sheight/2);
+        pop();
+        break;
+    }
+  }
+
   push();
   translate(-75,-100);
   textSize(36);
@@ -307,7 +323,7 @@ function Coral(x,y) {
   }
 
   this.clicked = () => {
-    clicked = true;
+    clicked += 1;
     if (colorSliderChanged){
       colVariance = colorSlider.value();
     }else{
