@@ -27,7 +27,7 @@ Sliders allow users to alter genetic change from one generation to the next
 Making use of p5.js' touchEnded, touchStarted() and resize() methods, Coral now works on most browsers including touchscreen mobile. It will adjust to landscape mode on your phone as well. However, due to known issues with resizing p5 and Android, the app may lag on an Android device. Future todos include resolving this issue.
 
 Coral on iPhone Chrome Browser:
-![iPhone](readme_images/tscreenshot3.png)
+![iPhone](readme_images/screenshot2.jpg)
 
 Coral on iPhone landscape mode:
 ![iPhone landscape](readme_images/tscreenshot4.jpg)
