@@ -44,7 +44,7 @@ For this web app, I have created three rules to apply to a single axiom, "F". Wh
 ##### Rules:
 
 a: "F",
-b: "+[+FF]-[-F+F+F]F"
+b: "+[+FF]-[-F+F+F]F" 
 
 a: "F",
 b: "+[+F-F-F]F-[-F+F+F]-FF"
