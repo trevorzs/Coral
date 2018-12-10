@@ -21,10 +21,11 @@ Click on a button to reset and reseed initial coral with randomized properties
 Click on a coral to generate a new set of coral based on clicked coral's "genetics"
 
 Sliders allow users to alter genetic change from one generation to the next
+![sliders](readme_images/tscreenshot2.png)
 
 ## Mobile Support
 Coral on iPhone Chrome Browser:
-![iPhone](readme_images/screenshot2.jpg)
+![iPhone](readme_images/tscreenshot3.jpg)
 
 Coral on iPhone landscape mode:
 ![iPhone landscape](readme_images/screenshot3.jpg)
