@@ -23,15 +23,6 @@ Click on a coral to generate a new set of coral based on clicked coral's "geneti
 Sliders allow users to alter genetic change from one generation to the next
 ![sliders](readme_images/tscreenshot2.png)
 
-## Mobile Support
-Making use of p5.js' touchEnded, touchStarted() and resize() methods, Coral now works on most browsers including touchscreen mobile. It will adjust to landscape mode on your phone as well. However, due to known issues with resizing p5 and Android, the app may lag on an Android device. Future todos include resolving this issue.
-
-Coral on iPhone Chrome Browser:
-![iPhone](readme_images/tscreenshot3.png)
-
-Coral on iPhone landscape mode:
-![iPhone landscape](readme_images/tscreenshot4.jpg)
-
 ## Stochastic Lindenmayer System
 Lindenmayer Systems, better known as l-systems, are a popular type of formal grammar in algorithmic botany. They are useful in imitating different structures of plants based on the provided rules and axioms.
 
@@ -44,7 +35,7 @@ For this web app, I have created three rules to apply to a single axiom, "F". Wh
 ##### Rules:
 
 a: "F",
-b: "+[+FF]-[-F+F+F]F" 
+b: "+[+FF]-[-F+F+F]F"
 
 a: "F",
 b: "+[+F-F-F]F-[-F+F+F]-FF"
@@ -82,6 +73,15 @@ for (var i = 0; i < l.length; i++) {
 ```
 
 As can be seen, each coral has its own render method for its own unique genetic structure. The render method takes into account the corals' traits, allowing for customizability when guiding its evolution. The objects are set up so that additional traits can be easily tacked on. For example, one could vary each coral's base shape, or calculate a sturdiness so that some coral sways more and some sway less.
+
+## Mobile Support
+Making use of p5.js' touchEnded, touchStarted() and resize() methods, Coral now works on most browsers including touchscreen mobile. It will adjust to landscape mode on your phone as well. However, due to known issues with resizing p5 and Android, the app may lag on an Android device. Future todos include resolving this issue.
+
+Coral on iPhone Chrome Browser:
+![iPhone](readme_images/screenshot2.jpg)
+
+Coral on iPhone landscape mode:
+![iPhone landscape](readme_images/tscreenshot4.jpg)
 
 
 ## Todo
