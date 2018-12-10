@@ -223,7 +223,6 @@ function Coral(x,y) {
   this.minwid = 2;
   this.wid = random(this.minwid,10);
   this.angle = random([random(-PI/6,-PI/10),random(PI/10,PI/6)]);
-  this.lendiff = random(0.1,0.9);
   this.complexity=random([2,3]);
   this.sturdiness = 0.002;
   this.flex = 0.0002;
@@ -254,7 +253,6 @@ function Coral(x,y) {
   this.l = this.generate(axiom,this.complexity);
   this.shape = (len) =>{
     fill(this.r,this.g,this.b);
-    line(0,0,0,-len);
     beginShape();
     vertex(0,0);
     vertex(0,-len);
@@ -327,7 +325,6 @@ function Coral(x,y) {
     if (colorSliderChanged){
       colVariance = colorSlider.value();
     }else{
-
       colorSlider.value(parseFloat((this.colorVariance + random(-0.02,0.02)).toFixed(2)));
       colVariance = this.colorVariance;
     }
@@ -435,25 +432,18 @@ function Coral(x,y) {
     }
     let len = length;
     for (var i = 0; i < l.length; i++) {
-      let current = l[i];
-      if (current == "F"){
+      if (l[i] == "F"){
         strokeWeight(0.8);
         this.shape(len);
         translate(0,-len);
-      } else if (current == "X"){
-        strokeWeight(0.8);
-        this.shape(len);
-        translate(0,-len);
-      } else if (current == "+"){
+      } else if (l[i] == "+"){
         rotate(this.angle-diff);
-      } else if (current == "-"){
+      } else if (l[i] == "-"){
         rotate(-this.angle-diff);
-      } else if (current == "["){
+      } else if (l[i] == "["){
         push();
-      } else if (current == "]"){
+      } else if (l[i] == "]"){
         pop();
-      } else if (current == "/"){
-        len = len*0.9;
       }
     }
   }

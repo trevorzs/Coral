@@ -1,12 +1,17 @@
 ## Coral
 Live Site: [trevorzs.github.io/Coral](trevorzs.github.io/Coral)  
 
+![Desktop](readme_images/tscreenshot1.png)
+
 ## Background
 #### Generative Art
 Generative Art refers to art that is created partly by an autonomous system. It can refer to art being primarily driven by complex algorithms or a mixture of machine and user input. This web app is an interactive visualization of generative coral.
 
+## About
 #### Coral
-In this web app, Corals are generated using a stochastic Lindenmayer System(l-system). Each coral then stores different properties as a virtual "genotype". Clicking on a coral will cause a new set of coral to be generated, based on the "genetics" of the coral that was clicked. This allows for dynamic evolution of the coral guided by user input.
+This web app was created entirely in JavaScript, utilizing the p5.js library. In this app, coral are generated using a stochastic Lindenmayer System(l-system). Each coral then stores different properties as a virtual "genotype". Clicking on a coral will cause a new set of coral to be generated, based on the "genetics" of the coral that was clicked. This allows for dynamic evolution of the coral guided by user input.
+
+Taking advantage of object oriented principles, coral can differ by primary color, outline color, width, length, angle of each branch, genetic structure, color variance, color mutation rate and more.
 
 For more info on l-systems and how I implemented them in this app, scroll to the bottom of this readme.
 
@@ -17,13 +22,7 @@ Click on a coral to generate a new set of coral based on clicked coral's "geneti
 
 Sliders allow users to alter genetic change from one generation to the next
 
-Touchscreen mobile web browser compatibility (limited on Android)
-
-## Screenshots
-
-Randomly Generated Coral on Macbook Pro:
-![Desktop](readme_images/screenshot1.png)
-
+## Mobile Support
 Coral on iPhone Chrome Browser:
 ![iPhone](readme_images/screenshot2.jpg)
 
@@ -60,6 +59,27 @@ b: "F[+F]F[-F][F]"
  "+[++[+FF]-[-F+F+F]F[+F[+F]F[-F][F]]F[+F]F[-F][F][-F[+F]F[-F][F]][F[+F]F[-F][F]]-+[+F-F-F]F-[-F+F+F]-FF[++[+F-F-F]F-[-F+F+F]-FF]+[+F-F-F]F-[-F+F+F]-FF[-F[+F]F[-F][F]][+[+F-F-F]F-[-F+F+F]-FF]-+[+F-F-F]F-[-F+F+F]-FF[++[+F-F-F]F-[-F+F+F]-FF]F[+F]F[-F][F][-+[+F-F-F]F-[-F+F+F]-FF][+[+FF]-[-F+F+F]F]]+[++[+FF]-[-F+F+F]F+[+FF]-[-F+F+F]F]-[-F[+F]F[-F][F]++[+FF]-[-F+F+F]F++[+FF]-[-F+F+F]F]F[+F]F[-F][F]-[-+[+F-F-F]F-[-F+F+F]-FF[+F[+F]F[-F][F]]+[+FF]-[-F+F+F]F[-+[+FF]-[-F+F+F]F][+[+FF]-[-F+F+F]F]++[++[+F-F-F]F-[-F+F+F]-FF-+[+F-F-F]F-[-F+F+F]-FF-F[+F]F[-F][F]]+[+FF]-[-F+F+F]F-[-+[+F-F-F]F-[-F+F+F]-FF++[+FF]-[-F+F+F]F++[+FF]-[-F+F+F]F]-F[+F]F[-F][F]+[+FF]-[-F+F+F]F++[++[+F-F-F]F-[-F+F+F]-FF-+[+F-F-F]F-[-F+F+F]-FF-+[+F-F-F]F-[-F+F+F]-FF]+[+F-F-F]F-[-F+F+F]-FF-[-+[+FF]-[-F+F+F]F+F[+F]F[-F][F]++[+F-F-F]F-[-F+F+F]-FF]-F[+F]F[-F][F]F[+F]F[-F][F]]-+[+F[+F]F[-F][F]+[+F-F-F]F-[-F+F+F]-FF]-[-+[+F-F-F]F-[-F+F+F]-FF++[+FF]-[-F+F+F]F++[+FF]-[-F+F+F]F]+[+F-F-F]F-[-F+F+F]-FF+[++[+F-F-F]F-[-F+F+F]-FFF[+F]F[-F][F]]-[-F[+F]F[-F][F]++[+F-F-F]F-[-F+F+F]-FF++[+F-F-F]F-[-F+F+F]-FF]+[+F-F-F]F-[-F+F+F]-FF"
 
 This resulting string is then iterated over. For each character in the string, a different thing will be rendered. F will render the coral's base shape. +/- will apply a rotate transformation based on the coral's angle gene. And "[" / "]" will push/pop the transformation slate, allowing branches to branch off without dramatically altering future transformations.
+
+```
+for (var i = 0; i < l.length; i++) {
+  if (l[i] == "F"){
+    strokeWeight(0.8);
+    this.shape(len);
+    translate(0,-len);
+  } else if (l[i] == "+"){
+    rotate(this.angle-diff);
+  } else if (l[i] == "-"){
+    rotate(-this.angle-diff);
+  } else if (l[i] == "["){
+    push();
+  } else if (l[i] == "]"){
+    pop();
+  }
+}
+```
+
+As can be seen, each coral has its own render method for its own unique genetic structure. The render method takes into account the corals' traits, allowing for customizability when guiding its evolution. The objects are set up so that additional traits can be easily tacked on. For example, one could vary each coral's base shape, or calculate a sturdiness so that some coral sways more and some sway less.
+
 
 ## Todo
 There is extreme variation in types of coral found in nature. The algorithm I am using could always be tweaked to account for more types and produce more realistic coral upon evolution. Base shapes right now are rectangles. Variation of base shape may help render more realistic coral but may require more processing power.
