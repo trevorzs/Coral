@@ -1,3 +1,17 @@
+let modal = document.getElementById('myModal');
+let span = document.getElementsByClassName("close")[0];
+span.onclick = function() {
+ modal.style.display = "none";
+ modalUp = false;
+}
+
+window.onclick = function(event) {
+ if (event.target == modal) {
+     modal.style.display = "none";
+     modalUp = false;
+ }
+}
+
 let coral = [];
 let bubbles = [];
 
@@ -62,13 +76,19 @@ function setup() {
   canvas.parent('main');
   button = createButton("Regenerate Coral");
   button.mouseClicked(generate);
-  button.id("regenerate");
+  infoButton = createButton("About This Project");
+  infoButton.mouseClicked(openModal);
   for (var i = 0; i < 15; i++) {
     bubbles.push(new Bubble());
   }
   for (var i = 1; i < 7; i++) {
     coral.push(new Coral(offset+i*spacing,sheight-sheight/10));
   }
+}
+
+function openModal(){
+  modal.style.display = "block";
+  modalUp = true;
 }
 
 function setColorVariance(){
@@ -117,6 +137,7 @@ function draw() {
   window.addEventListener('orientationchange',resize,false);
   background(50, 89, 100);
   button.position(swidth-200,sheight/6);
+  infoButton.position(swidth-202,sheight/5+5);
   noStroke();
   fill(156, 118, 73);
   rect(0,sheight-sheight/10,swidth,100);

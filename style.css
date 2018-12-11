@@ -3,7 +3,7 @@ body,div{
   overflow:hidden;
 }
 
-#regenerate{
+button{
   border-radius:5px;
   background:none;
   font-size:14px;
@@ -11,13 +11,13 @@ body,div{
   color:white;
 }
 
-#regenerate:hover{
+button:hover{
   color:lightblue;
   border: 1px solid lightblue;
   cursor:pointer;
 }
 
-#regenerate:focus{
+button:focus{
   outline:none;
 }
 
