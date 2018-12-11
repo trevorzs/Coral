@@ -237,8 +237,8 @@ function Coral(x,y) {
   this.g2 = random(this.g-80,this.g+80);
   this.b = random(255);
   this.b2 = random(this.b-80,this.b+80);
-  this.width = 50;
-  this.height = 100;
+  this.width = 55;
+  this.height = 150;
   this.minlength = 3;
   this.length = random(this.minlength,10);
   this.minwid = 2;
@@ -246,7 +246,7 @@ function Coral(x,y) {
   this.angle = random([random(-PI/6,-PI/10),random(PI/10,PI/6)]);
   this.complexity=random([2,3]);
   this.sturdiness = 0.002;
-  this.flex = 0.0002;
+  this.flex = 0.0001;
   this.diff = random(-0.001,0.001);
   this.structuralVariance = random(0.1,0.25);
   this.colorVariance = random(0.02,0.2);
