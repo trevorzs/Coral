@@ -76,7 +76,7 @@ function setup() {
   canvas.parent('main');
   button = createButton("Regenerate Coral");
   button.mouseClicked(generate);
-  infoButton = createButton("About This Project");
+  infoButton = createButton("About The Developer");
   infoButton.mouseClicked(openModal);
   for (var i = 0; i < 15; i++) {
     bubbles.push(new Bubble());
@@ -100,8 +100,7 @@ function setStrucVariance(){
 }
 
 function generate(){
-  clicked = 1;
-  info = false;
+  clicked = 0;
   colorSliderChanged = false;
   strucSliderChanged = false;
   colorSlider.value(0.1);
@@ -137,7 +136,7 @@ function draw() {
   window.addEventListener('orientationchange',resize,false);
   background(50, 89, 100);
   button.position(swidth-200,sheight/6);
-  infoButton.position(swidth-202,sheight/5+5);
+  infoButton.position(swidth-212,sheight/5+5);
   noStroke();
   fill(156, 118, 73);
   rect(0,sheight-sheight/10,swidth,100);

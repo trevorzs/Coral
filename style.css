@@ -79,3 +79,34 @@ canvas{
     background-color: rgb(50, 89, 100);
     color: white;
 }
+
+a{
+  color:rgb(50, 89, 100);
+}
+
+i{
+  font-size:40px;
+  padding:10px 20px;
+}
+
+a:hover{
+  color:purple;
+}
+.text{
+  visibility:hidden;
+}
+
+.portfolio-icon:hover .portfolio-text{
+  visibility: visible;
+}
+.github-icon:hover .github-text{
+  visibility: visible;
+}
+.linkedin-icon:hover .linkedin-text{
+  visibility: visible;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+}

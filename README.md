@@ -52,9 +52,9 @@ b: "F[+F]F[-F][F]"
 
  "+[++[+FF]-[-F+F+F]F[+F[+F]F[-F][F]]F[+F]F[-F][F][-F[+F]F[-F][F]][F[+F]F[-F][F]]-+[+F-F-F]F-[-F+F+F]-FF[++[+F-F-F]F-[-F+F+F]-FF]+[+F-F-F]F-[-F+F+F]-FF[-F[+F]F[-F][F]][+[+F-F-F]F-[-F+F+F]-FF]-+[+F-F-F]F-[-F+F+F]-FF[++[+F-F-F]F-[-F+F+F]-FF]F[+F]F[-F][F][-+[+F-F-F]F-[-F+F+F]-FF][+[+FF]-[-F+F+F]F]]+[++[+FF]-[-F+F+F]F+[+FF]-[-F+F+F]F]-[-F[+F]F[-F][F]++[+FF]-[-F+F+F]F++[+FF]-[-F+F+F]F]F[+F]F[-F][F]-[-+[+F-F-F]F-[-F+F+F]-FF[+F[+F]F[-F][F]]+[+FF]-[-F+F+F]F[-+[+FF]-[-F+F+F]F][+[+FF]-[-F+F+F]F]++[++[+F-F-F]F-[-F+F+F]-FF-+[+F-F-F]F-[-F+F+F]-FF-F[+F]F[-F][F]]+[+FF]-[-F+F+F]F-[-+[+F-F-F]F-[-F+F+F]-FF++[+FF]-[-F+F+F]F++[+FF]-[-F+F+F]F]-F[+F]F[-F][F]+[+FF]-[-F+F+F]F++[++[+F-F-F]F-[-F+F+F]-FF-+[+F-F-F]F-[-F+F+F]-FF-+[+F-F-F]F-[-F+F+F]-FF]+[+F-F-F]F-[-F+F+F]-FF-[-+[+FF]-[-F+F+F]F+F[+F]F[-F][F]++[+F-F-F]F-[-F+F+F]-FF]-F[+F]F[-F][F]F[+F]F[-F][F]]-+[+F[+F]F[-F][F]+[+F-F-F]F-[-F+F+F]-FF]-[-+[+F-F-F]F-[-F+F+F]-FF++[+FF]-[-F+F+F]F++[+FF]-[-F+F+F]F]+[+F-F-F]F-[-F+F+F]-FF+[++[+F-F-F]F-[-F+F+F]-FFF[+F]F[-F][F]]-[-F[+F]F[-F][F]++[+F-F-F]F-[-F+F+F]-FF++[+F-F-F]F-[-F+F+F]-FF]+[+F-F-F]F-[-F+F+F]-FF"
 
-This resulting string is then iterated over. For each character in the string, a different thing will be rendered. F will render the coral's base shape. +/- will apply a rotate transformation based on the coral's angle gene. And "[" / "]" will push/pop the transformation slate, allowing branches to branch off without dramatically altering future transformations.
+This resulting string is then iterated over. For each character in the string, a different thing will be rendered. F will render the coral's base shape. +/- will apply a rotate transformation based on the coral's angle gene. And "[" / "]" will push/pop the transformation slate (a handy tool in the p5.js library), allowing branches to branch off without dramatically altering future transformations.
 
-```
+```javascript
 for (var i = 0; i < l.length; i++) {
   if (l[i] == "F"){
     strokeWeight(0.8);
