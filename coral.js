@@ -251,6 +251,7 @@ function Coral(x,y) {
   this.colorVariance = random(0.02,0.2);
   this.colorVariation = random(10,30);
 
+
   this.generate = (sentence,times) => {
     if (times > 0){
       let nextSentence = "";
@@ -295,11 +296,11 @@ function Coral(x,y) {
     if (coral.angle < 0.1 && coral.angle > -0.1){
       coral.angle = random([0.1,-0.1]);
     }
-    if (coral.colorVariance > 0.3){
-      coral.colorVariance = random(0.27,0.3);
+    if (coral.colorVariance > coral.maxColorVariance){
+      coral.colorVariance = random(coral.maxColorVariance-0.03,coral.maxColorVariance);
     }
-    if (coral.structuralVariance > 0.4){
-      coral.structuralVariance = random(0.36,0.4);
+    if (coral.structuralVariance > coral.maxStructuralVariance){
+      coral.structuralVariance = random(coral.maxStructuralVariance-0.03,coral.maxStructuralVariance);
     }
 
     if (coral.r < 0){
