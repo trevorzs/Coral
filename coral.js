@@ -355,6 +355,7 @@ function Coral(x,y) {
       structureSlider.value(parseFloat((this.structuralVariance + random(-0.02,0.02)).toFixed(2)));
       strucVariance = this.structuralVariance;
     }
+
     for (var i = 0; i < coral.length; i++) {
       let difference = this.colorVariation;
       let roll = random(1);
